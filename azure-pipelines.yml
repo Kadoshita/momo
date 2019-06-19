@@ -21,4 +21,12 @@ steps:
 - script: |
     cd build
     make ubuntu-18.04_x86_64
+    cp ../momo $(Build.ArtifactStagingDirectory)
   displayName: 'make ubuntu-18.04_x86_64'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
+
