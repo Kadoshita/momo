@@ -17,3 +17,8 @@ steps:
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
+
+- script: |
+    cd build
+    make ubuntu-18.04_x86_64
+  displayName: 'make ubuntu-18.04_x86_64'
