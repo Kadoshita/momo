@@ -19,6 +19,7 @@ steps:
   displayName: 'Run a multi-line script'
 
 - script: |
+    sed -i -e '93 s/-it//' ./script/docker_run.sh
     cd build
     make ubuntu-18.04_x86_64
     cp ../momo $(Build.ArtifactStagingDirectory)
