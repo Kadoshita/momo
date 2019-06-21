@@ -10,20 +10,22 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
+- script: sed -i -e '93 s/-it//' ./script/docker_run.sh
+  displayName: 'fix docker_dun.sh'
 - script: |
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
-
 - script: |
-    sed -i -e '93 s/-it//' ./script/docker_run.sh
     cd build
     make ubuntu-18.04_x86_64
     cp ../momo $(Build.ArtifactStagingDirectory)
   displayName: 'make ubuntu-18.04_x86_64'
+- script: |
+    cd ../
+    file ./momo
+    cp ./momo $(Build.ArtifactStagingDirectory)
+  displayName: 'Artifact Upload'
 
 - task: PublishBuildArtifacts@1
   inputs:
