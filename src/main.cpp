@@ -25,6 +25,8 @@
 #endif
 #endif
 
+#include "rtc/screen_capturer.h"
+
 #include "serial_data_channel/serial_data_manager.h"
 
 #if USE_SDL2
@@ -91,8 +93,8 @@ int main(int argc, char* argv[]) {
 #else  // USE_ROS
     auto size = cs.getSize();
 #if defined(__APPLE__)
-    rtc::scoped_refptr<MacCapturer> capturer = MacCapturer::Create(
-        size.width, size.height, cs.framerate, cs.video_device);
+    // rtc::scoped_refptr<MacCapturer> capturer = MacCapturer::Create(
+    //     size.width, size.height, cs.framerate, cs.video_device);
 #elif defined(__linux__)
     rtc::scoped_refptr<V4L2VideoCapture> capturer =
         V4L2VideoCapture::Create(cs);
@@ -101,6 +103,8 @@ int main(int argc, char* argv[]) {
         DeviceVideoCapturer::Create(size.width, size.height, cs.framerate);
 #endif
 #endif  // USE_ROS
+
+    rtc::scoped_refptr<ScreenCapturer> capturer = ScreenCapturer::Create();
     return capturer;
   })();
 
@@ -116,8 +120,8 @@ int main(int argc, char* argv[]) {
         new SDLRenderer(cs.window_width, cs.window_height, cs.fullscreen));
   }
 
-  std::unique_ptr<RTCManager> rtc_manager(new RTCManager(
-      cs, std::move(capturer), sdl_renderer.get()));
+  std::unique_ptr<RTCManager> rtc_manager(
+      new RTCManager(cs, std::move(capturer), sdl_renderer.get()));
 #else
   std::unique_ptr<RTCManager> rtc_manager(
       new RTCManager(cs, std::move(capturer), nullptr));
@@ -128,7 +132,8 @@ int main(int argc, char* argv[]) {
 
     std::unique_ptr<RTCDataManager> data_manager = nullptr;
     if (!cs.serial_device.empty()) {
-      data_manager = SerialDataManager::Create(ioc, cs.serial_device, cs.serial_rate);
+      data_manager =
+          SerialDataManager::Create(ioc, cs.serial_device, cs.serial_rate);
       if (!data_manager) {
         return 1;
       }

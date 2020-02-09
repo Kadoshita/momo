@@ -285,6 +285,7 @@ target_sources(momo
     src/p2p/p2p_websocket_session.cpp
     src/rtc/connection.cpp
     src/rtc/device_video_capturer.cpp
+    src/rtc/screen_capturer.cpp
     src/rtc/h264_format.cpp
     src/rtc/hw_video_decoder_factory.cpp
     src/rtc/hw_video_encoder_factory.cpp
@@ -458,6 +459,8 @@ elseif (TARGET_OS STREQUAL "macos")
       "-framework Metal"
       "-framework MetalKit"
       "-framework OpenGL"
+      "-framework IOSurface"
+      "-framework CoreGraphics"
   )
 
   target_compile_definitions(momo
