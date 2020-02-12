@@ -15,6 +15,7 @@ class RTCManager {
              VideoTrackReceiver* receiver);
   ~RTCManager();
   void SetDataManager(RTCDataManager* data_manager);
+  std::string getIceServerConfig();
   std::shared_ptr<RTCConnection> createConnection(
       webrtc::PeerConnectionInterface::RTCConfiguration rtc_config,
       RTCMessageSender* sender);

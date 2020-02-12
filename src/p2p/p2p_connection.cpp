@@ -14,7 +14,7 @@ P2PConnection::P2PConnection(RTCManager* rtc_manager,
   webrtc::PeerConnectionInterface::RTCConfiguration rtc_config;
   webrtc::PeerConnectionInterface::IceServers servers;
   webrtc::PeerConnectionInterface::IceServer ice_server;
-  ice_server.uri = "stun:stun.l.google.com:19302";
+  ice_server.uri = rtc_manager->getIceServerConfig();
   servers.push_back(ice_server);
   rtc_config.servers = servers;
   _connection = rtc_manager->createConnection(rtc_config, this);

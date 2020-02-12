@@ -232,6 +232,7 @@ void Util::parseArgs(int argc,
               "Preference in video degradation (experimental)");
   app.add_option("--port", cs.port, "Port number (default: 8080)")
       ->check(CLI::Range(0, 65535));
+  app.add_option("--stun-server", cs.stun_server, "STUN server URI");
   app.add_flag("--use-sdl", cs.use_sdl,
                "Show video using SDL (if SDL is available)")
       ->check(is_sdl_available);

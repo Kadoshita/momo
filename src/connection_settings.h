@@ -30,6 +30,7 @@ struct ConnectionSettings {
   bool fixed_resolution = false;
   std::string priority = "BALANCE";
   int port = 8080;
+  std::string stun_server = "stun:stun.l.google.com:19302";
   bool use_sdl = false;
   bool show_me = false;
   int window_width = 640;

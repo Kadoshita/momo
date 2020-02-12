@@ -190,6 +190,9 @@ RTCManager::~RTCManager() {
 void RTCManager::SetDataManager(RTCDataManager* data_manager) {
   _data_manager = data_manager;
 }
+std::string RTCManager::getIceServerConfig() {
+  return _conn_settings.stun_server;
+}
 
 std::shared_ptr<RTCConnection> RTCManager::createConnection(
     webrtc::PeerConnectionInterface::RTCConfiguration rtc_config,
